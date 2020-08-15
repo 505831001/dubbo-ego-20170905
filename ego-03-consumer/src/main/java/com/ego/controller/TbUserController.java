@@ -14,6 +14,10 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
+/**
+ * @author liuweiwei
+ * @since 2020-8-15
+ */
 @Controller
 @RequestMapping(value = "/user")
 @Api(tags = "TbUserController", description = "用户管理相关接口")

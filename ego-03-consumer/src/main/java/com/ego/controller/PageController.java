@@ -4,6 +4,10 @@ import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * @author liuweiwei
+ * @since 2020-8-15
+ */
 @Controller
 @Api(tags = "PageController", description = "页面跳转相关接口")
 public class PageController {

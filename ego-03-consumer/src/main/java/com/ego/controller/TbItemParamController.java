@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * @author liuweiwei
+ * @since 2020-8-15
+ */
 @Controller
 @RequestMapping(value = "/item/param")
 @Api(tags = "TbItemParamController", description = "商品规则参数相关接口")
