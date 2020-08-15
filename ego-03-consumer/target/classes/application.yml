@@ -1,0 +1,29 @@
+server:
+  port: 8183
+
+dubbo:
+  application:
+    name: service-consumer
+  scan:
+    base-packages: com.ego.service
+  registry:
+    address: 127.0.0.1
+    port: 2181
+    protocol: zookeeper
+    subscribe: true
+  protocol:
+    name: dubbo
+    host: 127.0.0.1
+  consumer:
+    timeout: 10000
+    check: false
+    retries: 3
+
+spring:
+  thymeleaf:
+    enabled: true
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    cache: false
+    mode: HTML
+    suffix: .html
