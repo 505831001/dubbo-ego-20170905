@@ -5,6 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
+/**
+ * @author liuweiwei
+ * @since 2020-8-15
+ */
 @SpringBootApplication
 @EnableDubbo
 @EnableCaching

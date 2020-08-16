@@ -10,6 +10,7 @@ import com.ego.utils.IDUtils;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -121,19 +122,21 @@ public class TbItemServiceImpl implements TbItemService {
      * @return
      */
     @Override
-    public Integer save(TbItem tbItem, String desc) {
+    @Transactional(rollbackFor = java.lang.Exception.class)
+    public Integer save(TbItem tbItem, String desc) throws Exception {
         long id = IDUtils.genItemId();
-
+        // 1. 不考虑事务回滚
         TbItemDesc itemDesc = new TbItemDesc();
         itemDesc.setItemDesc(desc);
         itemDesc.setItemId(id);
         itemDesc.setCreated(new Date());
         itemDesc.setUpdated(new Date());
-
         tbItem.setCreated(new Date());
         tbItem.setUpdated(new Date());
         tbItem.setStatus(Byte.parseByte("1"));
         int insert = tbItemMapper.insert(tbItem);
+        // 2. 考虑事务回滚
+
         return insert;
     }
 
