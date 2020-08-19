@@ -8,10 +8,10 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
@@ -22,7 +22,7 @@ import springfox.documentation.annotations.ApiIgnore;
  * @author liuweiwei
  * @since 2020-05-19
  */
-@Controller
+@RestController
 @RequestMapping(value = "/user")
 @Api(tags = "TbUserController", description = "用户管理相关接口")
 public class UserController {

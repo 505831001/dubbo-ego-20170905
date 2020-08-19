@@ -15,6 +15,8 @@ import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA
+ * (1). Realm 是一个安全组件，它可以访问特定于应用程序的安全实体，如用户、角色和权限，以确定身份验证和授权操作。
+ * (2). 通过添加授权(访问控制)支持，扩展了{@code AuthenticatingRealm}的功能。
  *
  * @Author liuweiwei 505831001@qq.com
  * @Description 自定义域 Realm

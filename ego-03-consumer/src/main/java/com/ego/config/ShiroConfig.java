@@ -23,7 +23,7 @@ public class ShiroConfig {
      * 注入SecurityManager
      *
      * @param customRealm
-     * @return
+     * @return SecurityManager
      */
     @Bean
     public SecurityManager securityManager(CustomRealm customRealm) {
@@ -38,16 +38,23 @@ public class ShiroConfig {
      * 设置拦截器
      *
      * @param securityManager
-     * @return
+     * @return ShiroFilterFactoryBean
      */
     @Bean
     public ShiroFilterFactoryBean getShiroFilter(SecurityManager securityManager) {
         // 设置拦截器
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        // swagger接口权限开放
+        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/webjars/**", "anon");
+        filterChainDefinitionMap.put("/v2/**", "anon");
+        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+        // test接口权限配置
         filterChainDefinitionMap.put("/guest/**", "anon");
         filterChainDefinitionMap.put("/user/**", "roles[user]");
         filterChainDefinitionMap.put("/admin/**", "roles[admin]");
         filterChainDefinitionMap.put("/login", "anon");
+        // 警告All要开放的接口必须在此双星号**之前配置
         filterChainDefinitionMap.put("/**", "authc");
         // 设置拦截器
         ShiroFilterFactoryBean filter = new ShiroFilterFactoryBean();

@@ -21,7 +21,7 @@ import java.util.List;
  * @author liuweiwei
  * @since 2020-05-19
  */
-@Controller
+@RestController
 @Api(tags = "TbItemController", description = "物料管理相关接口")
 public class ItemController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ItemController.class);
@@ -31,7 +31,6 @@ public class ItemController {
 
     // http://localhost:8080/item/list?page=1&rows=30
     @GetMapping(value = "/item/list")
-    @ResponseBody
     @ApiOperation(value = "分页查询物料列表", notes = "查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", value = "当前页码", required = false, dataType = "int", paramType = "query"),
@@ -48,7 +47,6 @@ public class ItemController {
     // http://localhost:8080/item/query?page=1&rows=30
     @GetMapping(value = "/item/query")
     @ApiOperation(value = "分页查询物料信息", notes = "查询")
-    @ResponseBody
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = false, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "pageSize", value = "每页条数", required = false, dataType = "int", paramType = "query")
@@ -61,7 +59,6 @@ public class ItemController {
 
     // http://localhost:8080/rest/item/reshelf
     @PutMapping(value = "/rest/item/reshelf")
-    @ResponseBody
     @ApiOperation(value = "上架物料", notes = "上架")
     public Integer reshelf(@RequestParam(value = "ids") String ids) {
         int status = 0;
@@ -75,7 +72,6 @@ public class ItemController {
 
     // http://localhost:8080/rest/item/instock
     @PutMapping(value = "/rest/item/instock")
-    @ResponseBody
     @ApiOperation(value = "下架物料", notes = "下架")
     public Integer instock(@RequestParam(value = "ids") String ids) {
         int status = 0;
@@ -89,7 +85,6 @@ public class ItemController {
 
     // http://localhost:8080/rest/item/delete
     @DeleteMapping(value = "/rest/item/delete")
-    @ResponseBody
     @ApiOperation(value = "删除物料", notes = "删除")
     public Integer delete(@RequestParam(value = "ids") String ids) {
         int status = 0;
@@ -117,7 +112,6 @@ public class ItemController {
      * itemParams: []
      */
     @PostMapping(value = "/item/save")
-    @ResponseBody
     @ApiOperation(value = "新增物料", notes = "保存")
     public Integer save(@RequestBody TbItem item, String desc) {
         int status = 0;

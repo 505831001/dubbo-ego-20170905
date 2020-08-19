@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * @author liuweiwei
  * @since 2020-8-15
  */
-@Controller
+@RestController
 @RequestMapping(value = "/item/cat")
 @Api(tags = "TbItemCatController", description = "物料品类相关接口")
 public class ItemCatController {
@@ -26,7 +27,6 @@ public class ItemCatController {
 
     // http://localhost:8080/item/cat/list
     @GetMapping(value = "/list")
-    @ResponseBody
     @ApiOperation(value = "查询物料品类列表", notes = "查询")
     public List<TbItemCat> list() {
         List<TbItemCat> list = tbItemCatService.list();
