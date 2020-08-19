@@ -3,7 +3,7 @@ server:
 
 dubbo:
   application:
-    name: service-consumer
+    name: dubbo-consumer
   scan:
     base-packages: com.ego.service
   registry:

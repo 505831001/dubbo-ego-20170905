@@ -13,7 +13,7 @@ mybatis:
 
 dubbo:
   application:
-    name: service-provider
+    name: dubbo-provider
   scan:
     base-packages: com.ego.service
   registry:

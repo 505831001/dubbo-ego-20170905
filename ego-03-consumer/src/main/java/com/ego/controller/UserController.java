@@ -3,28 +3,39 @@ package com.ego.controller;
 import com.ego.entity.PageResult;
 import com.ego.entity.TbUser;
 import com.ego.service.TbUserService;
+import com.ego.utils.ResultMap;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
 
-import java.util.List;
-
 /**
+ * <p>
+ * 用户表 用户控制器类
+ * </p>
+ *
  * @author liuweiwei
- * @since 2020-8-15
+ * @since 2020-05-19
  */
 @Controller
 @RequestMapping(value = "/user")
 @Api(tags = "TbUserController", description = "用户管理相关接口")
-public class TbUserController {
+public class UserController {
+    @Autowired
+    private ResultMap resultMap;
 
     @Reference
     private TbUserService tbUserService;
+
+    @GetMapping(value = "/getMessage")
+    public ResultMap getMessage() {
+        return resultMap.success().message("您拥有用户权限，可以获得该接口的信息！");
+    }
 
     /**
      * 查询用户列表

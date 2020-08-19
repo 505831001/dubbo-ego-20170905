@@ -6,6 +6,14 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * <p>
+ * 商品表 服务映射类
+ * </p>
+ *
+ * @author liuweiwei
+ * @since 2020-05-19
+ */
 @Mapper
 public interface TbItemMapper {
     long countByExample(TbItem example);

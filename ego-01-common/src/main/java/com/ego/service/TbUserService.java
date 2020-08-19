@@ -16,6 +16,12 @@ import java.util.List;
  */
 public interface TbUserService {
     public List<TbUser> getAll();
+
     public PageResult<TbUser> query(int pageNum, int pageSize);
+
     public PageInfo<TbUser> getPageTbUser(int pageNum, int pageSize);
+
+    public String getPassword(String username);
+
+    public String getRole(String username);
 }

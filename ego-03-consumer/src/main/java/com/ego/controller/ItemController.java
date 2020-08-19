@@ -14,14 +14,17 @@ import springfox.documentation.annotations.ApiIgnore;
 import java.util.List;
 
 /**
+ * <p>
+ * 商品表 控制器类
+ * </p>
+ *
  * @author liuweiwei
- * @since 2020-8-15
+ * @since 2020-05-19
  */
 @Controller
 @Api(tags = "TbItemController", description = "物料管理相关接口")
-public class TbItemController {
-
-    private Logger LOGGER = LoggerFactory.getLogger(TbItemController.class);
+public class ItemController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItemController.class);
 
     @Reference
     private TbItemService tbItemService;
@@ -61,7 +64,12 @@ public class TbItemController {
     @ResponseBody
     @ApiOperation(value = "上架物料", notes = "上架")
     public Integer reshelf(@RequestParam(value = "ids") String ids) {
-        int status = tbItemService.reshelf(ids);
+        int status = 0;
+        try {
+            status = tbItemService.reshelf(ids);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return status;
     }
 
@@ -70,7 +78,12 @@ public class TbItemController {
     @ResponseBody
     @ApiOperation(value = "下架物料", notes = "下架")
     public Integer instock(@RequestParam(value = "ids") String ids) {
-        int status = tbItemService.instock(ids);
+        int status = 0;
+        try {
+            status = tbItemService.instock(ids);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return status;
     }
 
@@ -79,7 +92,13 @@ public class TbItemController {
     @ResponseBody
     @ApiOperation(value = "删除物料", notes = "删除")
     public Integer delete(@RequestParam(value = "ids") String ids) {
-        int status = tbItemService.delete(ids);
+        int status = 0;
+        try {
+            status = tbItemService.delete(ids);
+        } catch (Exception e) {
+            LOGGER.info("TbItemController.delete" + e.getMessage());
+            e.printStackTrace();
+        }
         return status;
     }
 
@@ -101,8 +120,13 @@ public class TbItemController {
     @ResponseBody
     @ApiOperation(value = "新增物料", notes = "保存")
     public Integer save(@RequestBody TbItem item, String desc) {
-        TbItem tbItem = new TbItem();
-        int status = tbItemService.save(item, desc);
+        int status = 0;
+        try {
+            status = tbItemService.save(item, desc);
+        } catch (Exception e) {
+            LOGGER.info("TbItemController.save" + e.getMessage());
+            e.printStackTrace();
+        }
         return status;
     }
 }

@@ -6,6 +6,14 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * <p>
+ * 商品描述表 服务实现映射类
+ * </p>
+ *
+ * @author ego
+ * @since 2020-05-19
+ */
 @Mapper
 public interface TbItemDescMapper {
     long countByExample(TbItemDesc example);
@@ -14,7 +22,7 @@ public interface TbItemDescMapper {
 
     int deleteByPrimaryKey(Long itemId);
 
-    int insert(TbItemDesc record);
+    int insert(TbItemDesc record) throws Exception;
 
     int insertSelective(TbItemDesc record);
 

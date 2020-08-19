@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/item/param")
 @Api(tags = "TbItemParamController", description = "商品规则参数相关接口")
-public class TbItemParamController {
-
+public class ItemParamController {
     @Reference
     private TbItemParamService tbItemParamService;
 
@@ -31,5 +30,4 @@ public class TbItemParamController {
         EasyUIPage itemList = tbItemParamService.list(pageNum, pageSize);
         return itemList;
     }
-
 }

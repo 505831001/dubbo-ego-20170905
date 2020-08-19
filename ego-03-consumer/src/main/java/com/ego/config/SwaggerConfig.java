@@ -10,8 +10,11 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /**
- * @author liuweiwei
- * @since 2020-08-14
+ * Created with IntelliJ IDEA
+ *
+ * @author liuweiwei 505831001@qq.com
+ * @Description swagger2 配置
+ * @since 2020-05-20
  */
 @Configuration
 public class SwaggerConfig {

@@ -1,5 +1,6 @@
 package com.ego.service.impl;
 
+import com.ego.dao.TbItemDescMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ego.entity.TbItem;
@@ -8,6 +9,8 @@ import com.ego.dao.TbItemMapper;
 import com.ego.service.TbItemService;
 import com.ego.utils.IDUtils;
 import org.apache.dubbo.config.annotation.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +18,25 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * <p>
+ * 商品表 服务实现类
+ * </p>
+ *
+ * @author liuweiwei
+ * @since 2020-05-19
+ */
 @Service
 @Component
 public class TbItemServiceImpl implements TbItemService {
 
+    private Logger LOGGER = LoggerFactory.getLogger(TbItemServiceImpl.class);
+
     @Autowired
     private TbItemMapper tbItemMapper;
+
+    @Autowired
+    private TbItemDescMapper tbItemDescMapper;
 
     /**
      * 分页查询物料列表
@@ -124,19 +140,27 @@ public class TbItemServiceImpl implements TbItemService {
     @Override
     @Transactional(rollbackFor = java.lang.Exception.class)
     public Integer save(TbItem tbItem, String desc) throws Exception {
-        long id = IDUtils.genItemId();
         // 1. 不考虑事务回滚
-        TbItemDesc itemDesc = new TbItemDesc();
-        itemDesc.setItemDesc(desc);
-        itemDesc.setItemId(id);
-        itemDesc.setCreated(new Date());
-        itemDesc.setUpdated(new Date());
+        int insert = 0;
+        long id = IDUtils.genItemId();
+        // 2. 新增商品表信息
         tbItem.setCreated(new Date());
         tbItem.setUpdated(new Date());
         tbItem.setStatus(Byte.parseByte("1"));
-        int insert = tbItemMapper.insert(tbItem);
+        insert += tbItemMapper.insert(tbItem);
+        Long itemId = tbItem.getId();
+        // 3. 新增商品描述表信息
+        TbItemDesc itemDesc = new TbItemDesc();
+        itemDesc.setItemId(itemId);
+        itemDesc.setCreated(new Date());
+        itemDesc.setUpdated(new Date());
+        itemDesc.setItemDesc(desc);
+        insert += tbItemDescMapper.insert(itemDesc);
         // 2. 考虑事务回滚
-
+        if (insert != 2) {
+            LOGGER.info("考虑事务回滚");
+            new RuntimeException();
+        }
         return insert;
     }
 

@@ -19,7 +19,7 @@ import java.util.List;
  * 商品规则参数 服务实现类
  * </p>
  *
- * @author ego
+ * @author liuweiwei
  * @since 2020-05-19
  */
 @Service

@@ -13,6 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * @author liuweiwei
+ * @since 2020-05-19
+ */
 @Service
 @Component
 public class PicServiceImpl implements PicService {

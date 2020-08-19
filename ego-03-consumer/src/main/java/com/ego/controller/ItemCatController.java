@@ -19,7 +19,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/item/cat")
 @Api(tags = "TbItemCatController", description = "物料品类相关接口")
-public class TbItemCatController {
+public class ItemCatController {
 
     @Reference
     private TbItemCatService tbItemCatService;

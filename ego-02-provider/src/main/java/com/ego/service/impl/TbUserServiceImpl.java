@@ -16,7 +16,7 @@ import java.util.List;
  * 用户表 服务实现类
  * </p>
  *
- * @author ego
+ * @author liuweiwei
  * @since 2020-05-19
  */
 @Service
@@ -65,5 +65,17 @@ public class TbUserServiceImpl implements TbUserService {
         pageInfo.setList(list);
         // 4. 返回
         return pageInfo;
+    }
+
+    @Override
+    public String getPassword(String username) {
+        String password = tbUserMapper.getPassword(username);
+        return password;
+    }
+
+    @Override
+    public String getRole(String username) {
+        String role = tbUserMapper.getRole(username);
+        return role;
     }
 }

@@ -43,5 +43,4 @@ public class PicController {
         Map<String, Object> upload = picService.upload(uploadFile);
         return upload;
     }
-
 }

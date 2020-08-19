@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ego.dao.TbItemMapper">
+
     <resultMap id="BaseResultMap" type="com.ego.entity.TbItem">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
@@ -14,6 +15,7 @@
         <result column="created" jdbcType="TIMESTAMP" property="created"/>
         <result column="updated" jdbcType="TIMESTAMP" property="updated"/>
     </resultMap>
+
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -44,6 +46,7 @@
             </foreach>
         </where>
     </sql>
+
     <sql id="Update_By_Example_Where_Clause">
         <where>
             <foreach collection="example.oredCriteria" item="criteria" separator="or">
@@ -74,9 +77,20 @@
             </foreach>
         </where>
     </sql>
+
     <sql id="Base_Column_List">
-    id, title, sell_point, price, num, barcode, image, cid, status, created, updated
-  </sql>
+        id,
+        title,
+        sell_point,
+        price,
+        num,
+        barcode,
+        image,
+        cid,
+        status,
+        created,
+        updated
+    </sql>
 
     <select id="selectByExample" parameterType="com.ego.entity.TbItem" resultMap="BaseResultMap">
         select
@@ -120,10 +134,11 @@
         from tb_item
         where id = #{id,jdbcType=BIGINT}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from tb_item
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
+        delete from tb_item where id = #{id,jdbcType=BIGINT}
+    </delete>
+
     <delete id="deleteByExample" parameterType="com.ego.entity.TbItem">
         delete from tb_item
         <if test="_parameter != null">
@@ -131,9 +146,12 @@
         </if>
     </delete>
 
-    <insert id="insert" parameterType="com.ego.entity.TbItem">
+    <!-- 允许JDBC支持自动生成主键 -->
+    <!-- 1. 在settings元素中设置参数 -->
+    <!-- 2. 在xml映射器中设置参数 -->
+    <!-- 3. 在接口映射器中设置参数 -->
+    <insert id="insert" parameterType="com.ego.entity.TbItem" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into tb_item (
-            id,
             title,
             sell_point,
             price,
@@ -146,7 +164,6 @@
             updated
         )
         values (
-            #{id,jdbcType=BIGINT},
             #{title,jdbcType=VARCHAR},
             #{sellPoint,jdbcType=VARCHAR},
             #{price,jdbcType=BIGINT},
@@ -160,7 +177,8 @@
         )
     </insert>
 
-    <insert id="insertSelective" parameterType="com.ego.entity.TbItem">
+    <!-- 允许JDBC支持自动生成主键 -->
+    <insert id="insertSelective" parameterType="com.ego.entity.TbItem" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into tb_item
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -233,6 +251,7 @@
             </if>
         </trim>
     </insert>
+
     <select id="countByExample" parameterType="com.ego.entity.TbItem" resultType="java.lang.Long">
         select count(*) from tb_item
         <if test="_parameter != null">
@@ -285,6 +304,7 @@
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
     </update>
+
     <update id="updateByExample" parameterType="map">
         update tb_item
         set id = #{record.id,jdbcType=BIGINT},
@@ -302,6 +322,7 @@
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
     </update>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.ego.entity.TbItem">
         update tb_item
         <set>
@@ -339,21 +360,19 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
 
-    <update id="reshelf" parameterType="long">
+    <update id="reshelf" parameterType="long" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         UPDATE tb_item
-        SET status = 1,
-         updated = now()
-        WHERE
-            id = #{id}
+        SET status = 1, updated = now()
+        WHERE id = #{id}
     </update>
 
-    <update id="instock" parameterType="com.ego.entity.TbItem">
+    <update id="instock" parameterType="com.ego.entity.TbItem" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         update tb_item
         set status = 2, updated=now()
         where id = #{item.id,jdbcType=BIGINT}
     </update>
 
-    <update id="delete" parameterType="com.ego.entity.TbItem">
+    <update id="delete" parameterType="com.ego.entity.TbItem" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         update tb_item
         set status = 3, updated=now()
         where id = #{item.id,jdbcType=BIGINT}
