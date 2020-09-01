@@ -5,6 +5,10 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
+/**
+ * @author liuweiwei
+ * @since  2020-08-14
+ */
 @Data
 @ToString
 public class TbOrderItem implements Serializable {

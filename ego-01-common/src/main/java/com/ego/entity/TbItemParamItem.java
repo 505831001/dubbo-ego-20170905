@@ -6,6 +6,10 @@ import lombok.ToString;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author liuweiwei
+ * @since  2020-08-14
+ */
 @Data
 @ToString
 public class TbItemParamItem implements Serializable {

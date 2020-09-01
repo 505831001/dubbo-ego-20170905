@@ -3,10 +3,12 @@ package com.ego.dao;
 import com.ego.entity.TbItemCat;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface TbItemCatMapper {
     long countByExample(TbItemCat example);
 

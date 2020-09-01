@@ -1,17 +1,14 @@
 package com.ego.entity;
 
+import lombok.Data;
+import lombok.ToString;
+
+/**
+ * @author liuweiwei
+ * @since  2020-08-14
+ */
+@Data
+@ToString
 public class TbItemParamPlus extends TbItemParam {
     private String itemCatName;
-    public String getItemCatName() {
-        return itemCatName;
-    }
-    public void setItemCatName(String itemCatName) {
-        this.itemCatName = itemCatName;
-    }
-    @Override
-    public String toString() {
-        return "TbItemParamPlus{" +
-                "itemCatName='" + itemCatName + '\'' +
-                '}';
-    }
 }

@@ -6,6 +6,9 @@ import lombok.ToString;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author Administrator
+ */
 @Data
 @ToString
 public class TbContent implements Serializable {
