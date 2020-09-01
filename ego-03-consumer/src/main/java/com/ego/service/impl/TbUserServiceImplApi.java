@@ -1,12 +1,12 @@
 package com.ego.service.impl;
 
 import com.ego.service.TbUserServiceApi;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Administrator
  */
-@Service
+@Component
 public class TbUserServiceImplApi implements TbUserServiceApi {
 
     @Override

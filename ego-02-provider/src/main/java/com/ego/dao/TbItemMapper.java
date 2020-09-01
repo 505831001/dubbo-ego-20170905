@@ -3,6 +3,7 @@ package com.ego.dao;
 import com.ego.entity.TbItem;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @since 2020-05-19
  */
 @Mapper
+@Repository
 public interface TbItemMapper {
     long countByExample(TbItem example);
 

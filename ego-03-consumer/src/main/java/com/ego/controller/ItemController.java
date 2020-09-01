@@ -1,5 +1,6 @@
 package com.ego.controller;
 
+import com.ego.entity.EasyUIPage;
 import com.ego.entity.TbItem;
 import com.ego.service.TbItemService;
 import com.github.pagehelper.PageInfo;
@@ -24,10 +25,10 @@ import java.util.List;
 @RestController
 @Api(tags = "TbItemController", description = "物料管理相关接口")
 public class ItemController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ItemController.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ItemController.class);
 
     @Reference
-    private TbItemService tbItemService;
+    protected TbItemService tbItemService;
 
     // http://localhost:8080/item/list?page=1&rows=30
     @GetMapping(value = "/item/list")
@@ -37,11 +38,10 @@ public class ItemController {
             @ApiImplicitParam(name = "rows", value = "每页条数", required = false, dataType = "int", paramType = "query")
     })
     @ApiResponse(code = 200, message = "返回码:0-失败,1-成功", response = TbItem.class)
-    public List<TbItem> list(@RequestParam(value = "page", defaultValue = "0") int pageNum,
-                             @RequestParam(value = "rows", defaultValue = "10") int pageSize) {
-        List<TbItem> list = tbItemService.list(pageNum, pageSize);
-        LOGGER.info("[Liuweiwei] -> " + list);
-        return list;
+    public EasyUIPage list(@RequestParam(value = "page", defaultValue = "0") int pageNum,
+                           @RequestParam(value = "rows", defaultValue = "10") int pageSize) {
+        EasyUIPage result = tbItemService.list(pageNum, pageSize);
+        return result;
     }
 
     // http://localhost:8080/item/query?page=1&rows=30

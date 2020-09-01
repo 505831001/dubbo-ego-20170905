@@ -1,6 +1,7 @@
 package com.ego.service.impl;
 
 import com.ego.dao.TbItemDescMapper;
+import com.ego.entity.EasyUIPage;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ego.entity.TbItem;
@@ -30,7 +31,7 @@ import java.util.List;
 @Component
 public class TbItemServiceImpl implements TbItemService {
 
-    private Logger LOGGER = LoggerFactory.getLogger(TbItemServiceImpl.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(TbItemServiceImpl.class);
 
     @Autowired
     private TbItemMapper tbItemMapper;
@@ -46,9 +47,20 @@ public class TbItemServiceImpl implements TbItemService {
      * @return
      */
     @Override
-    public List<TbItem> list(int pageNum, int pageSize) {
-        List<TbItem> itemPageList = tbItemMapper.selectItemPageList(pageNum, pageSize);
-        return itemPageList;
+    public EasyUIPage list(int pageNum, int pageSize) {
+        EasyUIPage easyUIPage = new EasyUIPage();
+        int startPage = (pageNum -1) * pageSize;
+        /**
+         * 数据集
+         */
+        List<TbItem> rows = tbItemMapper.selectItemPageList(startPage, pageSize);
+        easyUIPage.setRows(rows);
+        /**
+         * 总条数
+         */
+        long count = tbItemMapper.count();
+        easyUIPage.setTotal(count);
+        return easyUIPage;
     }
 
     /**

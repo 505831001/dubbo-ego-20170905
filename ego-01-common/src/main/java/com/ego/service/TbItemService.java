@@ -1,5 +1,6 @@
 package com.ego.service;
 
+import com.ego.entity.EasyUIPage;
 import com.ego.entity.TbItem;
 import com.github.pagehelper.PageInfo;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @since 2020-05-19
  */
 public interface TbItemService {
-    public List<TbItem> list(int pageNum, int pageSize);
+    public EasyUIPage list(int pageNum, int pageSize);
 
     public PageInfo<TbItem> query(int pageNum, int pageSize);
 
