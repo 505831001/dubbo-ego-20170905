@@ -19,9 +19,6 @@ public class TbItemServiceTest {
 
     @Test
     public void tbItemServiceTest() {
-        List<TbItem> list = tbItemService.list(0, 10);
-        for (TbItem item : list) {
-            System.out.println(item.toString());
-        }
+        tbItemService.list(0, 10);
     }
 }

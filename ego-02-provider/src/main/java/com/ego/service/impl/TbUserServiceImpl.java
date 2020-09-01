@@ -23,7 +23,7 @@ import java.util.List;
 @Component
 public class TbUserServiceImpl implements TbUserService {
 
-    @Autowired
+    @Autowired(required = false)
     private TbUserMapper tbUserMapper;
 
     @Override

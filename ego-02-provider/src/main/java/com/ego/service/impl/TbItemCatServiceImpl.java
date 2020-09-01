@@ -21,7 +21,7 @@ import java.util.List;
 @Component
 public class TbItemCatServiceImpl implements TbItemCatService {
 
-    @Autowired
+    @Autowired(required = false)
     private TbItemCatMapper tbItemCatMapper;
 
     @Override

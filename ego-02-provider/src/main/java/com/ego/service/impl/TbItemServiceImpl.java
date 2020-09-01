@@ -33,10 +33,10 @@ public class TbItemServiceImpl implements TbItemService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(TbItemServiceImpl.class);
 
-    @Autowired
+    @Autowired(required = false)
     private TbItemMapper tbItemMapper;
 
-    @Autowired
+    @Autowired(required = false)
     private TbItemDescMapper tbItemDescMapper;
 
     /**

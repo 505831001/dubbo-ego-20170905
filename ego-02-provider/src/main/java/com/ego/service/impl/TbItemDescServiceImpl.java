@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TbItemDescServiceImpl implements TbItemDescService {
 
-    @Autowired
+    @Autowired(required = false)
     private TbItemDescMapper tbItemDescMapper;
 
     @Override

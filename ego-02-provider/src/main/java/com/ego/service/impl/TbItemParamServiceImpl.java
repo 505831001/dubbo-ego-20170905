@@ -27,10 +27,10 @@ import java.util.List;
 @Component
 public class TbItemParamServiceImpl implements TbItemParamService {
 
-    @Autowired
+    @Autowired(required = false)
     private TbItemParamMapper tbItemParamMapper;
 
-    @Autowired
+    @Autowired(required = false)
     private TbItemCatMapper tbItemCatMapper;
 
     @Override
