@@ -30,7 +30,10 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Swagger").description("show").termsOfServiceUrl("no terms of service")
+        return new ApiInfoBuilder()
+                .title("介就系标题")
+                .description("介就系描述")
+                .termsOfServiceUrl(" - url to the terms of service")
                 .version("2.0")
                 .build();
     }
