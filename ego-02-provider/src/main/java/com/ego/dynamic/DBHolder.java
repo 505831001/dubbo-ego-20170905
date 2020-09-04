@@ -1,4 +1,7 @@
-package com.ego.annotation;
+package com.ego.dynamic;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -10,9 +13,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class DBHolder {
     /**
+     * SLF4J 骚粉日志必备技能
+     */
+    protected static final Logger LOGGER = LoggerFactory.getLogger(DBHolder.class);
+
+    /**
      * 对线程进行隔离(使用本地线程)
      */
     private static final ThreadLocal<DBEnum> HOLDER = new ThreadLocal<>();
+
     /**
      * 保证线程原子性(JUC特性)
      */
@@ -32,6 +41,7 @@ public class DBHolder {
 
     public static void master() {
         set(DBEnum.WRITE);
+        LOGGER.info("Master branch -> " + DBEnum.WRITE);
         System.out.println("切换到master");
     }
 
@@ -39,6 +49,7 @@ public class DBHolder {
         int index = ATOMIC.getAndIncrement() % 2;
         if (index == 0) {
             set(DBEnum.READ);
+            LOGGER.info("Slave0 branch -> " + DBEnum.READ);
             System.out.println("切换到slave0");
         }
     }

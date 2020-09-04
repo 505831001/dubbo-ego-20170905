@@ -1,6 +1,5 @@
 package com.ego.dao;
 
-import com.ego.entity.PageResult;
 import com.ego.entity.TbUser;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,7 +16,6 @@ import java.util.List;
  * @author liuweiwei
  * @since 2020-08-17
  */
-@Repository
 @Mapper
 public interface TbUserMapper {
 

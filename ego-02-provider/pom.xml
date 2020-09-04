@@ -59,13 +59,18 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- Spring Boot - 执行器
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>-->
         <!-- Spring Boot - MyBatis -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.1.1</version>
         </dependency>
-        <!-- Dubbo Spring Boot Starter -->
+        <!-- Spring Boot - Dubbo -->
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
@@ -111,12 +116,12 @@
             <groupId>com.dangdang</groupId>
             <artifactId>sharding-jdbc-core</artifactId>
             <version>1.5.4</version>
-        </dependency> -->
+        </dependency>
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
             <version>4.0.0-RC1</version>
-        </dependency>
+        </dependency>-->
 
         <!-- zookeeper 去除其中的log4j否则会因为日志原因导致堆栈溢出 -->
         <dependency>

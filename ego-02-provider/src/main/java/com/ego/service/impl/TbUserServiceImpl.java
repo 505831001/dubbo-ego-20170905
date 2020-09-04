@@ -1,10 +1,10 @@
 package com.ego.service.impl;
 
-import com.ego.entity.PageResult;
 import com.ego.dao.TbUserMapper;
-import com.github.pagehelper.PageInfo;
+import com.ego.entity.PageResult;
 import com.ego.entity.TbUser;
 import com.ego.service.TbUserService;
+import com.github.pagehelper.PageInfo;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ import java.util.List;
 @Component
 public class TbUserServiceImpl implements TbUserService {
 
-    @Autowired(required = false)
+    @Autowired
     private TbUserMapper tbUserMapper;
 
     @Override

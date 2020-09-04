@@ -1,4 +1,4 @@
-package com.ego.annotation;
+package com.ego.dynamic;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class DBAspect {
-    @Pointcut("!@annotation(com.ego.annotation.DBSource) " +
+    @Pointcut("!@annotation(com.ego.dynamic.DBSource) " +
             "&& (execution(* com.ego.service..*.select*(..)) " +
             "|| execution(* com.ego.service..*.get*(..)))")
     public void readAspect() {
@@ -26,7 +26,7 @@ public class DBAspect {
         DBHolder.slave0();
     }
 
-    @Pointcut("@annotation(com.ego.annotation.DBSource) " +
+    @Pointcut("@annotation(com.ego.dynamic.DBSource) " +
             "|| execution(* com.ego.service..*.insert*(..)) " +
             "|| execution(* com.ego.service..*.add*(..)) " +
             "|| execution(* com.ego.service..*.update*(..)) " +

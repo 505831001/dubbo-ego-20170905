@@ -1,4 +1,4 @@
-package com.ego.annotation;
+package com.ego.dynamic;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

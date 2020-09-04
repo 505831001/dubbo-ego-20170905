@@ -16,7 +16,6 @@ import java.util.List;
  * @since 2020-05-19
  */
 @Mapper
-@Repository
 public interface TbItemDescMapper {
     long countByExample(TbItemDesc example);
 

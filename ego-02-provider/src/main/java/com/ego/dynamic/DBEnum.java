@@ -1,4 +1,4 @@
-package com.ego.annotation;
+package com.ego.dynamic;
 
 /**
  * 2. 读写分离多数据源：读写枚举类

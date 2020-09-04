@@ -1,4 +1,4 @@
-package com.ego.annotation;
+package com.ego.dynamic;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;

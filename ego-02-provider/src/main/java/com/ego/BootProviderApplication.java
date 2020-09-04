@@ -6,10 +6,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 /**
+ * Action:
+ * Consider defining a bean of type 'com.ego.dao.TbUserMapper' in your configuration.
+ * 1. @SpringBootApplication(scanBasePackages = {"com.ego.dao"})
+ * 2. @ComponentScan(basePackages = {"com.ego.dao"})
+ * 3. @MapperScan(basePackages = {"com.ego.dao"})
+ *
  * @author liuweiwei
  * @since 2020-8-15
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.ego.dao"})
 @EnableDubbo
 @EnableCaching
 public class BootProviderApplication {
