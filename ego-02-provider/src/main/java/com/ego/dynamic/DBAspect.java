@@ -3,17 +3,24 @@ package com.ego.dynamic;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * 5. 读写分离多数据源：AOP切面编程
+ * 4. 读写分离多数据源：多数据源切面处理类，实现数据库的选择
  *
  * @author liuweiwei
  * @since 2020-08-28
  */
-@Aspect
 @Component
+@Aspect
 public class DBAspect {
+    /**
+     * SLF4J 骚人日志必备
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(DBAspect.class);
+
     @Pointcut("!@annotation(com.ego.dynamic.DBSource) " +
             "&& (execution(* com.ego.service..*.select*(..)) " +
             "|| execution(* com.ego.service..*.get*(..)))")

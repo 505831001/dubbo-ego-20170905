@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 1. 读写分离多数据源：配置文档
+ * 6. 读写分离多数据源：动态数据源的配置
  *
  * @author liuweiwei
  * @since 2020-08-28

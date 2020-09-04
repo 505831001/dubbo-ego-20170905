@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 3. 本地线程设置和获取数据源信息
+ * 5.1 本地线程设置和获取数据源信息
  *
  * @author liuweiwei
  * @since 2020-08-28

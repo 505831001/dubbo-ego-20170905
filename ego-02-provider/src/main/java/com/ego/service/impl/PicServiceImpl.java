@@ -3,6 +3,8 @@ package com.ego.service.impl;
 import com.ego.service.PicService;
 import com.ego.utils.FtpUtil;
 import org.apache.dubbo.config.annotation.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +22,10 @@ import java.util.UUID;
 @Service
 @Component
 public class PicServiceImpl implements PicService {
+    /**
+     * SLF4J 骚人日志必备技能
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(PicServiceImpl.class);
 
     @Value("${ftpclient.host}")
     private String host;

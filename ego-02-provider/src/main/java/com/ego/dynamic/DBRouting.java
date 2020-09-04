@@ -4,7 +4,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.lang.Nullable;
 
 /**
- * 4. 读写分离多数据源：获取路由Key
+ * 5. 读写分离多数据源：DynamicDataSource申明其作为工程全局的使用
  *
  * @author liuweiwei
  * @since 2020-08-28

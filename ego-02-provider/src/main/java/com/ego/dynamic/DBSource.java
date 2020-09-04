@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 6. 读写分离多数据源：操作注解
+ * 3. 读写分离多数据源：自定义多数据源注解
  *
  * @author liuweiwei
  * @since 2020-08-28

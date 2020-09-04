@@ -30,8 +30,10 @@ import java.util.List;
 @Service
 @Component
 public class TbItemServiceImpl implements TbItemService {
-
-    private final Logger LOGGER = LoggerFactory.getLogger(TbItemServiceImpl.class);
+    /**
+     * SLF4J 骚人日志必备技能
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(TbItemServiceImpl.class);
 
     @Autowired(required = false)
     private TbItemMapper tbItemMapper;

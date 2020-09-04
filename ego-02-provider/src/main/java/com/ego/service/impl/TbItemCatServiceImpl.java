@@ -4,6 +4,8 @@ import com.ego.entity.TbItemCat;
 import com.ego.dao.TbItemCatMapper;
 import com.ego.service.TbItemCatService;
 import org.apache.dubbo.config.annotation.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,10 @@ import java.util.List;
 @Service
 @Component
 public class TbItemCatServiceImpl implements TbItemCatService {
+    /**
+     * SLF4J 骚人日志必备技能
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(TbItemCatServiceImpl.class);
 
     @Autowired(required = false)
     private TbItemCatMapper tbItemCatMapper;

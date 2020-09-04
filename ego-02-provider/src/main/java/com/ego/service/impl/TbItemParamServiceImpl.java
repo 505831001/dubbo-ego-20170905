@@ -7,6 +7,8 @@ import com.ego.entity.TbItemParam;
 import com.ego.entity.TbItemParamPlus;
 import com.ego.service.TbItemParamService;
 import org.apache.dubbo.config.annotation.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,6 +28,10 @@ import java.util.List;
 @Service
 @Component
 public class TbItemParamServiceImpl implements TbItemParamService {
+    /**
+     * SLF4J 骚人日志必备技能
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(TbItemParamServiceImpl.class);
 
     @Autowired(required = false)
     private TbItemParamMapper tbItemParamMapper;

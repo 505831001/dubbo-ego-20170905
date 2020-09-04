@@ -2,6 +2,8 @@ package com.ego.service.impl;
 
 import com.ego.service.TbOrderService;
 import org.apache.dubbo.config.annotation.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,5 +17,8 @@ import org.springframework.stereotype.Component;
 @Service
 @Component
 public class TbOrderServiceImpl implements TbOrderService {
-
+    /**
+     * SLF4J 骚人日志必备技能
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(TbOrderServiceImpl.class);
 }
