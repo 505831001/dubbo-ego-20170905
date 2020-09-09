@@ -7,5 +7,5 @@ package com.ego.service;
 public interface AmqpService {
     public Integer send(String message);
 
-    public Integer receive(String message);
+    public void sendMessage(String message);
 }

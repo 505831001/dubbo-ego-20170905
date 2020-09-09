@@ -1,5 +1,6 @@
 package com.ego.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ego.config.AmqpConfig;
 import com.ego.service.AmqpService;
 import org.apache.dubbo.config.annotation.Service;
@@ -27,7 +28,7 @@ public class AmqpServiceImpl implements AmqpService {
 
     @Override
     public Integer send(String message) {
-        LOGGER.info("AmqpServiceImpl.send -> message: {}" + message);
+        LOGGER.info("业务层发送的消息： -> message: {}" + message);
         amqpTemplate.convertAndSend(AmqpConfig.ALIBABA_NEWS, message);
         amqpTemplate.convertAndSend(AmqpConfig.LIUWEIWEI_NEWS, message);
         amqpTemplate.convertAndSend(AmqpConfig.LIUWEIWEI_PEOPLES, message);
@@ -35,9 +36,9 @@ public class AmqpServiceImpl implements AmqpService {
     }
 
     @Override
-    // @RabbitListener(queues = AmqpConfig.ALIBABA_NEWS)
-    public Integer receive(String message) {
-        LOGGER.info("AmqpServiceImpl.receive -> message: {}" + message);
-        return 1;
+    public void sendMessage(String message) {
+        String string = JSONObject.toJSONString(message);
+        LOGGER.info("业务层发送的消息： -> string: {}", string);
+        amqpTemplate.convertAndSend(AmqpConfig.ALIBABA_NEWS, string);
     }
 }
