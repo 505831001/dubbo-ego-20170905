@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TbContentCategoryServiceImpl implements TbContentCategoryService {
     /**
-     * SLF4J 骚人日志必备技能
+     * SLF4J 骚粉日志必备技能
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(TbContentCategoryServiceImpl.class);
 }
