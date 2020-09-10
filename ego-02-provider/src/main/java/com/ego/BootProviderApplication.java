@@ -4,6 +4,7 @@ import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
 /**
  * Action:
@@ -18,6 +19,7 @@ import org.springframework.cache.annotation.EnableCaching;
 @SpringBootApplication(scanBasePackages = {"com.ego.dao"})
 @EnableDubbo
 @EnableCaching
+@EnableWebSocketMessageBroker
 public class BootProviderApplication {
     public static void main(String[] args) {
         SpringApplication.run(BootProviderApplication.class, args);

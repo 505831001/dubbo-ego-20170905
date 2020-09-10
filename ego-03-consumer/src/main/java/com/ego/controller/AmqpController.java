@@ -38,6 +38,7 @@ public class AmqpController {
             @ApiResponse(code = 200, message = "AMQP", response = String.class)
     })
     public String sendMessage(String message) {
+        LOGGER.info("");
         amqpService.sendMessage(message);
         return "Okay";
     }
