@@ -6,7 +6,7 @@
 
     <groupId>com.liuweiwei</groupId>
     <artifactId>ego-02-provider</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <!-- 基本信息 -->
     <name>ego-02-provider</name>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>com.liuweiwei</groupId>
             <artifactId>ego-01-common</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
         <!-- Spring Boot - Starter -->
