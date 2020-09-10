@@ -1,6 +1,5 @@
 package com.ego.service.impl;
 
-import com.ego.entity.WebSocketVO;
 import com.ego.entity.WiselyResponse;
 import com.ego.service.WebSocketService;
 import org.apache.dubbo.config.annotation.Service;
@@ -22,18 +21,18 @@ import java.util.List;
 @Component
 public class WebSocketServiceImpl implements WebSocketService {
 
-    @Autowired
+    @Autowired(required = false)
     protected SimpMessagingTemplate simpMessagingTemplate;
 
     @Override
     public void sendMessage(WiselyResponse message) {
-        simpMessagingTemplate.convertAndSend(WebSocketVO.PATH_PRODUCER, message);
+        simpMessagingTemplate.convertAndSend("/app", message);
     }
 
     @Override
     public void sendUser(List<String> list, WiselyResponse message) {
         for (int i = 0; i < list.size(); i++) {
-            simpMessagingTemplate.convertAndSendToUser(list.get(i), WebSocketVO.PATH_P2P_PUSH, message);
+            simpMessagingTemplate.convertAndSendToUser(list.get(i), "/app", message);
         }
     }
 }

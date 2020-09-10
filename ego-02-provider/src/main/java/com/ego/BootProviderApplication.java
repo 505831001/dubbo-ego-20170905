@@ -19,7 +19,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 @SpringBootApplication(scanBasePackages = {"com.ego.dao"})
 @EnableDubbo
 @EnableCaching
-@EnableWebSocketMessageBroker
+//@EnableWebSocketMessageBroker
 public class BootProviderApplication {
     public static void main(String[] args) {
         SpringApplication.run(BootProviderApplication.class, args);
