@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ego.dao.TbUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ego.entity.TbUser">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="role" property="role" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="created" property="created" />
+        <result column="updated" property="updated" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        username,
+        password,
+        role,
+        phone,
+        email,
+        created,
+        updated
+    </sql>
+
+    <select id="count" resultType="long">
+        SELECT COUNT(1) FROM tb_user WHERE 1=1
+    </select>
+
+    <select id="query" parameterType="com.github.pagehelper.PageInfo" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"></include>
+        FROM tb_user
+        WHERE 1=1
+        LIMIT #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"></include>
+        FROM tb_user
+        WHERE 1=1
+    </select>
+
+    <select id="getRole" parameterType="string" resultType="java.lang.String">
+        SELECT role
+        FROM tb_user
+        WHERE username = #{username}
+        LIMIT 1
+    </select>
+
+    <select id="getPassword" parameterType="string" resultType="java.lang.String">
+        SELECT password
+        FROM tb_user
+        WHERE username = #{username}
+        LIMIT 1
+    </select>
+
+</mapper>

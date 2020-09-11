@@ -106,12 +106,12 @@
             <version>1.1.21</version>
         </dependency> -->
 
+        <!-- Sharding-JDBC
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>5.2.3.RELEASE</version>
         </dependency>
-        <!-- Sharding-JDBC
         <dependency>
             <groupId>io.shardingjdbc</groupId>
             <artifactId>sharding-jdbc-core</artifactId>
@@ -126,12 +126,12 @@
             <groupId>com.dangdang</groupId>
             <artifactId>sharding-jdbc-core</artifactId>
             <version>1.5.4</version>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
             <version>4.0.0-RC1</version>
-        </dependency>-->
+        </dependency>
 
         <!-- zookeeper 去除其中的log4j否则会因为日志原因导致堆栈溢出 -->
         <dependency>

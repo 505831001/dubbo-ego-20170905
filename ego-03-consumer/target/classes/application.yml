@@ -1,0 +1,54 @@
+server:
+  port: 8083
+
+dubbo:
+  application:
+    name: dubbo-consumer
+  scan:
+    base-packages: com.ego.service
+  registry:
+    address: 127.0.0.1
+    port: 2181
+    protocol: zookeeper
+    subscribe: true
+  protocol:
+    name: dubbo
+    host: 127.0.0.1
+  consumer:
+    timeout: 10000
+    check: false
+    retries: 3
+
+spring:
+  thymeleaf:
+    enabled: true
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    cache: false
+    mode: HTML
+    suffix: .html
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    timeout: 0
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: / # 这个账号密码只能连接本地的mq，远程的话需要配置
+    listener:
+      simple:
+        max-concurrency: 10
+        concurrency: 10
+        prefetch: 1 # 从队列每次取一个
+        auto-startup: true
+        default-requeue-rejected: true # 失败后重试

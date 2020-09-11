@@ -6,6 +6,7 @@ import com.ego.entity.TbUser;
 import com.ego.service.TbUserService;
 import com.github.pagehelper.PageInfo;
 import org.apache.dubbo.config.annotation.Service;
+import org.apache.shardingsphere.api.hint.HintManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class TbUserServiceImpl implements TbUserService {
 
     @Override
     public List<TbUser> getAll() {
+        // 强制路由主库
+		// HintManager.getInstance().setMasterRouteOnly();
         return tbUserMapper.selectAll();
     }
 
