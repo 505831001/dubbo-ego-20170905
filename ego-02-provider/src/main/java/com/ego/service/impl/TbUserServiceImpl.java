@@ -35,8 +35,11 @@ public class TbUserServiceImpl implements TbUserService {
 
     @Override
     public List<TbUser> getAll() {
-        // 强制路由主库
-		// HintManager.getInstance().setMasterRouteOnly();
+        /**
+         * 强制路由主库
+         * Set database operation force route to master database only.
+         */
+        HintManager.getInstance().setMasterRouteOnly();
         return tbUserMapper.selectAll();
     }
 

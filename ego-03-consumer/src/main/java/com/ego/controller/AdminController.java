@@ -2,9 +2,10 @@ package com.ego.controller;
 
 import com.ego.utils.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.annotation.Resources;
 
 /**
  * <p>
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/admin")
 public class AdminController {
+
     @Autowired
     private ResultMap resultMap;
 

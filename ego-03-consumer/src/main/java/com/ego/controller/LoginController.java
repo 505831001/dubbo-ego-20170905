@@ -9,9 +9,7 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author liuweiwei
@@ -24,7 +22,7 @@ public class LoginController {
     private ResultMap resultMap;
 
     @Reference
-    private TbUserService tbUserService;
+    protected TbUserService tbUserService;
 
     @GetMapping(value = "/notLogin")
     public ResultMap notLogin() {
@@ -33,7 +31,7 @@ public class LoginController {
 
     @GetMapping(value = "/notRole")
     public ResultMap notRole() {
-        return resultMap.success().message("您没有权限！");
+        return resultMap.success().message("Shiro Filter 按请求路径拦->(/notRole)您没有权限！");
     }
 
     @GetMapping(value = "/logout")
