@@ -68,4 +68,21 @@ public class LoginController {
         }
         return resultMap.fail().message("权限错误！");
     }
+
+    /**
+     * @CrossOrigin 注解用来配置跨域请求，第一个参数origins表示那些域名可以跨域访问这个方法。
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    @PostMapping(value = "/login2")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
+    public String login2(String username, String password) {
+        if ("admin".equals(username) && "123456".equals(password)) {
+            return "success or Successful";
+        } else {
+            return "failure or Failed";
+        }
+    }
 }
