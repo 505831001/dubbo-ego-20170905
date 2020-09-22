@@ -50,6 +50,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/v2/**", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");
         // test接口权限配置
+        filterChainDefinitionMap.put("/jdk/**", "anon");
+        filterChainDefinitionMap.put("/http/**", "anon");
+        filterChainDefinitionMap.put("/rest/**", "anon");
         filterChainDefinitionMap.put("/guest/**", "anon");
         filterChainDefinitionMap.put("/user/**", "roles[user]");
         filterChainDefinitionMap.put("/admin/**", "roles[admin]");

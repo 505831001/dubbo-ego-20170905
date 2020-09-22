@@ -144,12 +144,14 @@ public class HttpClientController {
          * @param headers the entity headers - (HttpHeaders) response.getAllHeaders()
          * @param status the status code     - HttpStatus.valueOf(response.getStatusLine().getStatusCode())
          */
+        String string = EntityUtils.toString(entity, "UTF-8");
+        String s = new String(EntityUtils.toString(entity).getBytes("ISO_8859_1"), "UTF-8");
         HttpHeaders httpHeaders = new HttpHeaders();
         for (Header header : headers) {
             httpHeaders.add(header.getName(), header.getValue());
         }
-        ResponseEntity<String> result = new ResponseEntity<>(EntityUtils.toString(entity), httpHeaders, HttpStatus.valueOf(statusCode));
-        LOGGER.info("Create a new HttpEntity with the -> body:{}, headers:{}, statusCode:{}", entity);
+        ResponseEntity<String> result = new ResponseEntity<>(string, httpHeaders, HttpStatus.valueOf(statusCode));
+        LOGGER.info("Create a new HttpEntity with the -> body:{}, headers:{}, statusCode:{}", string);
         return result;
     }
 }
