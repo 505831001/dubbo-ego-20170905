@@ -25,7 +25,8 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.ego.controller"))
-                .paths(PathSelectors.any())
+                // .paths(PathSelectors.any())
+                .paths(PathSelectors.regex("/.*"))
                 .build();
     }
 
@@ -33,8 +34,9 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("介就系标题")
                 .description("介就系描述")
-                .termsOfServiceUrl(" - url to the terms of service")
-                .version("2.0")
+                .termsOfServiceUrl("更新服务网址条款《服务条款URL》")
+                .contact("更新负责此API的人员的联系信息")
+                .version("2.9.2")
                 .build();
     }
 

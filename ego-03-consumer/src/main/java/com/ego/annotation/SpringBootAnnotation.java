@@ -4,7 +4,7 @@ package com.ego.annotation;
  * @author liuweiwei
  * @since 2020-08-28
  */
-public class SpringBootAnnotation {
+public @interface SpringBootAnnotation {
 
     /**
      * @SpringBootApplication
