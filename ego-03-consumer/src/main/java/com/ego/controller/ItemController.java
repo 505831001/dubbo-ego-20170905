@@ -2,17 +2,18 @@ package com.ego.controller;
 
 import com.ego.entity.EasyUIPage;
 import com.ego.entity.TbItem;
+import com.ego.entity.TbItemVO;
 import com.ego.service.TbItemService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -29,6 +30,20 @@ public class ItemController {
 
     @Reference
     protected TbItemService tbItemService;
+
+    /**
+     * 列表查询物料信息
+     *
+     * @return TbItemVO
+     */
+    // http://localhost:8080/item/page?page=1&rows=30
+    @GetMapping(value = "/item/page")
+    @ApiOperation(value = "列表查询物料信息", notes = "查询")
+    @ApiResponse(code = 200, message = "返回码 0-失败 1-成功", response = TbItemVO.class)
+    public List<TbItemVO> page() {
+        List<TbItem> sourceList = tbItemService.page();
+        return sourceList.stream().map(TbItemVO::new).collect(Collectors.toList());
+    }
 
     // http://localhost:8080/item/list?page=1&rows=30
     @GetMapping(value = "/item/list")

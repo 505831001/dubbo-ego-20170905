@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration  -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user             -->
+<!--                                                                -->
+<!-- For professional support please see                            -->
+<!--    http://www.qos.ch/shop/products/professionalSupport         -->
+<!--                                                                -->
+<configuration>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 自动压缩-->
+            <fileNamePattern>logs/ego-provider.%d{yyyy-MM-dd_HH}.%i.log.gz</fileNamePattern>
+            <!-- 每100mb进行一次压缩-->
+            <maxFileSize>100mb</maxFileSize>
+            <!-- 最多保留720个小时内的日志 即30天-->
+            <maxHistory>720</maxHistory>
+            <!-- 总日志超过5gb 会自动清除历史日志文件-->
+            <totalSizeCap>5gb</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--文件输出error日志的配置-->
+    <appender name="fileErrorlog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--为了在error日志中没有info日志，所以我们设置一个过滤器 记住是ThresholdFilter，不是levelFilter-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+        <!--滚动策略 按照时间来滚动-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 自动压缩-->
+            <fileNamePattern>logs/ego-provider.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <!-- 每100mb进行一次压缩-->
+            <maxFileSize>100mb</maxFileSize>
+            <!-- 最多保留30天日志-->
+            <maxHistory>30</maxHistory>
+            <!-- 总日志超过5gb 会自动清除历史日志文件-->
+            <totalSizeCap>5gb</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="org.apache.http.impl.conn.PoolingHttpClientConnectionManager" level="error"/>
+
+    <root level="info">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+        <appender-ref ref="fileErrorlog"/>
+    </root>
+</configuration>

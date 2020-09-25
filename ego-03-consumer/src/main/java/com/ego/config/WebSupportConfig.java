@@ -1,46 +1,42 @@
 package com.ego.config;
 
-import com.ego.service.TbUserService;
-import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.ego.intercept.WebInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.servlet.config.annotation.*;
 
 /**
- * @author Administrator
+ * 1.这是提供MVC Java配置背后的配置的主要类。
+ * 2.它通常是通过添加{@EnableWebMvc}到应用程序{@Configuration}类来导入的。
+ * 3.另一种更高级的选择是直接从这个类扩展，并在必要时覆盖方法，记住添加{@Configuration}到子类，添加{@Bean}到覆盖{@Bean}方法。
+ * 4.有关更多细节，请参见{@EnableWebMvc}的Javadoc。
+ *
+ * @author liuweiwei
+ * @since 2020-05-20
  */
-@Configuration
+//@Configuration
 public class WebSupportConfig extends WebMvcConfigurationSupport {
-    @Reference
-    protected TbUserService tbUserService;
+
+    @Value("${loginIntercept}")
+    private boolean loginIntercept;
+
+    @Autowired
+    protected WebInterceptor webInterceptor;
+
     /**
      * 重写此方法以添加用于控制器调用的预处理和后处理的Spring MVC拦截器。
      */
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
-        // 1. 创建拦截器顺路继承自：HandlerInterceptorAdapter 抽象类。HandlerInterceptor 接口。
-        InterceptorRegistration interceptor = registry.addInterceptor(new HandlerInterceptorAdapter() {
-            @Override
-            public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-                String password = tbUserService.getPassword("admin");
-                if (StringUtils.isEmpty(password)) {
-                    throw new RuntimeException("登录失败");
-                }
-                return true;
-            }
-        });
-        // 1.1 所有请求都拦截
-        interceptor.addPathPatterns("/**");
-        // 1.2 配置不拦截请求（将不拦截请求添加进去）白名单
-        interceptor.excludePathPatterns("/rest/login.do/info");
-        interceptor.excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
+        if (loginIntercept == true) {
+            // 2. 自定义拦截器类继承自：HandlerInterceptorAdapter 抽象类。HandlerInterceptor 接口。
+            InterceptorRegistration interceptor2 = registry.addInterceptor(webInterceptor);
+            // 2.1 所有请求都拦截
+            interceptor2.addPathPatterns("/**");
+            // 2.2 配置不拦截请求（将不拦截请求添加进去）白名单
+            interceptor2.excludePathPatterns("/rest/login.do/info");
+            interceptor2.excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
+        }
     }
 
     /**

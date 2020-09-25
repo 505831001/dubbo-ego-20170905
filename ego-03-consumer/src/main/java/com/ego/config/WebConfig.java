@@ -30,14 +30,63 @@ import java.util.List;
 public class WebConfig implements WebMvcConfigurer {
 
     /**
-     * 1. Spring MVC XML配置文档版本：dispatchServlet-servlet.xml。Spring XML配置文档：applicationContext.xml
-     * 1.1 mvc:interceptors
-     * 1.2 mvc:annotation-driven
-     * 1.3 mvc:default-servlet-handler
-     * 1.4 mvc:resources
-     * 1.5 mvc:view-controller
+     * 《过滤器的传说》
      *
-     * 2.
+     * 1. java web 跨域请求的几种方式
+     * 1.1 基于Servlet和过滤器的方式。方式一。
+     * 2.1 SpringMVC通过@CrossOrigin注解设置跨域请求。方式一。
+     * 3. 通过XML配置文件配置全局的跨域访问。
+     * 1.2 使用拦截器，实现javax.servlet.Filter接口。
+     * 2.2 使用注解的形式，配置org.springframework.web.filter.CorsFilter。通常SpringBoot项目多数使用这种方式。
+     * 4. 常用的方法有传统JDK自带的java.net.URLConnection抽象类。
+     * 5. 使用Apache Common包下的子项目的HttpClient工具类。
+     * 6. 使用Spring框架的RestTemplate模块类。在SpringBoot项目下使用。
+     * 7. 使用Spring Cloud分布式组件Feign。
+     */
+
+    /**
+     * 《拦截器的传说》
+     *
+     * 1. Spring MVC 框架 3.0 - 拦截器：Interceptor。
+     * 1.1 Spring MVC XML配置文档版本：dispatchServlet-servlet.xml。Spring XML配置文档：applicationContext.xml。
+     *      <mvc:default-servlet-handler></mvc:default-servlet-handler>
+     *      1. 通过转发到Servlet容器的默认Servlet来配置用于服务静态资源的处理程序。
+     *      2. 使用这种处理程序允许使用"/"映射与DispatcherServlet，同时仍然利用Servlet容器提供静态服务资源。
+     *      3. org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler。
+     *      <mvc:annotation-driven></mvc:annotation-driven>
+     *      1. 配置注解驱动的Spring MVC控制器编程模型。注意，在Spring 3.0中，这个标签只能在Servlet MVC中工作。
+     *      2. 看到EnableWebMvc Javadoc的关于启用注释驱动的Spring MVC的基于代码的替代方案的信息支持。
+     *      3. org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping。
+     *      4. org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter。
+     *      <mvc:resources></mvc:resources>
+     *      <mvc:resources location="/WEB-INF/js/"     mapping="/js/**"></mvc:resources>
+     *      <mvc:resources location="/WEB-INF/images/" mapping="/images/**"></mvc:resources>
+     *      <mvc:resources location="/WEB-INF/css/"    mapping="/css/**"></mvc:resources>
+     *      1. 配置一个处理程序，用于服务静态资源，比如：images，js，css文件与缓存头优化高效在web浏览器中加载。
+     *      2. 允许从通过Spring的资源处理可到达的任何路径提供资源。
+     *      <mvc:interceptors></mvc:interceptors>
+     *      <mvc:interceptors>
+     *         <mvc:interceptor>
+     *             <mvc:mapping path="/**"/>
+     *             <mvc:exclude-mapping path="/swagger-resources/**"/>
+     *             <mvc:exclude-mapping path="/v2/**"/>
+     *             <mvc:exclude-mapping path="/swagger-ui.html#!/**"/>
+     *             <mvc:exclude-mapping path="/swagger-resources/**"/>
+     *             <bean class="com.ego.intercept.MvcInterceptor"/>
+     *         </mvc:interceptor>
+     *      </mvc:interceptors>
+     *      1. 拦截器的有序集合，用于拦截由控制器处理的HTTP Servlet请求。
+     *      2. 拦截器允许在处理之前/之后对请求进行预处理/后处理。
+     *      3. 每个inteceptor必须实现HandlerInterceptor。或者WebRequestInterceptor接口。
+     *      4. 此集合中的拦截器在每个注册的处理程序映射上自动配置。
+     *      5. 每个拦截器应用的URI路径是可配置的。
+     *      <mvc:view-controller></mvc:view-controller>
+     *      <mvc:view-controller path="viewController" view-name="login"></mvc:view-controller>
+     *      1. 定义一个简单的控制器，它选择一个视图来呈现响应。
+     *      2. 视图映射到的URL路径。
+     *      3. 要呈现的视图的名称。可选的。
+     *      4. 如果没有指定，视图名称将从当前HttpServletRequest中确定通过DispatcherServlet的RequestToViewNameTranslator。
+     * 1.2 Spring Boot继承HandlerInterceptorAdapter新版本。或者继承WebMvcConfigurationSupport旧版本。
      *
      */
 
@@ -74,21 +123,22 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 1. 创建拦截器顺路继承自：HandlerInterceptorAdapter 抽象类。HandlerInterceptor 接口。
-        InterceptorRegistration interceptor1 = registry.addInterceptor(new HandlerInterceptorAdapter() {
-            @Override
-            public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-                return true;
-            }
-        });
-        // 1.1 所有请求都拦截
-        interceptor1.addPathPatterns("/**");
-        // 1.2 配置不拦截请求（将不拦截请求添加进去）白名单
-        interceptor1.excludePathPatterns("/rest/login.do/info");
-        interceptor1.excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
-
-        // 2. 自定义拦截器类继承自：HandlerInterceptorAdapter 抽象类。HandlerInterceptor 接口。
-        if (loginIntercept) {
+        if (loginIntercept == false) {
+            // 1. 创建拦截器顺路继承自：HandlerInterceptorAdapter 抽象类。HandlerInterceptor 接口。
+            InterceptorRegistration interceptor1 = registry.addInterceptor(new HandlerInterceptorAdapter() {
+                @Override
+                public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+                    return true;
+                }
+            });
+            // 1.1 所有请求都拦截
+            interceptor1.addPathPatterns("/**");
+            // 1.2 配置不拦截请求（将不拦截请求添加进去）白名单
+            interceptor1.excludePathPatterns("/rest/login.do/info");
+            interceptor1.excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
+        }
+        if (loginIntercept == true) {
+            // 2. 自定义拦截器类继承自：HandlerInterceptorAdapter 抽象类。HandlerInterceptor 接口。
             InterceptorRegistration interceptor2 = registry.addInterceptor(webInterceptor);
             // 2.1 所有请求都拦截
             interceptor2.addPathPatterns("/**");

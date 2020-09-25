@@ -35,4 +35,11 @@ public interface TbItemService {
      * @throws Exception 此处抛出异常可供Dubbo RPC服务Provider和Consumer进行事务交互
      */
     public Integer save(TbItem tbItem, String desc) throws Exception;
+
+    /**
+     * 列表查询物料信息
+     *
+     * @return TbItem
+     */
+    List<TbItem> page();
 }

@@ -1,6 +1,9 @@
 package com.ego.entity;
 
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
@@ -12,8 +15,9 @@ import java.util.Date;
  */
 @Data
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class TbItem implements Serializable {
-
     private Long id;
     private String title;
     private String sellPoint;
@@ -25,5 +29,4 @@ public class TbItem implements Serializable {
     private Byte status;
     private Date created;
     private Date updated;
-
 }

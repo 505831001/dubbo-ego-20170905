@@ -1,14 +1,14 @@
 package com.ego.service.impl;
 
 import com.ego.dao.TbItemDescMapper;
+import com.ego.dao.TbItemMapper;
 import com.ego.entity.EasyUIPage;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.ego.entity.TbItem;
 import com.ego.entity.TbItemDesc;
-import com.ego.dao.TbItemMapper;
 import com.ego.service.TbItemService;
 import com.ego.utils.IDUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +51,7 @@ public class TbItemServiceImpl implements TbItemService {
     @Override
     public EasyUIPage list(int pageNum, int pageSize) {
         EasyUIPage easyUIPage = new EasyUIPage();
-        int startPage = (pageNum -1) * pageSize;
+        int startPage = (pageNum - 1) * pageSize;
         /**
          * 数据集
          */
@@ -176,6 +176,17 @@ public class TbItemServiceImpl implements TbItemService {
             new RuntimeException();
         }
         return insert;
+    }
+
+    /**
+     * 列表查询物料信息
+     *
+     * @return TbItemVO
+     */
+    @Override
+    public List<TbItem> page() {
+        List<TbItem> list = tbItemMapper.selectAll();
+        return list;
     }
 
 }
