@@ -33,11 +33,11 @@ public class WebConfig implements WebMvcConfigurer {
      * 《过滤器的传说》
      *
      * 1. java web 跨域请求的几种方式
-     * 1.1 基于Servlet和过滤器的方式。方式一。
-     * 2.1 SpringMVC通过@CrossOrigin注解设置跨域请求。方式一。
+     *      1.1 基于Servlet和过滤器的方式。方式一。
+     *      2.1 SpringMVC通过@CrossOrigin注解设置跨域请求。方式一。
      * 3. 通过XML配置文件配置全局的跨域访问。
-     * 1.2 使用拦截器，实现javax.servlet.Filter接口。
-     * 2.2 使用注解的形式，配置org.springframework.web.filter.CorsFilter。通常SpringBoot项目多数使用这种方式。
+     *      1.2 使用拦截器，实现javax.servlet.Filter接口。
+     *      2.2 使用注解的形式，配置org.springframework.web.filter.CorsFilter。通常SpringBoot项目多数使用这种方式。
      * 4. 常用的方法有传统JDK自带的java.net.URLConnection抽象类。
      * 5. 使用Apache Common包下的子项目的HttpClient工具类。
      * 6. 使用Spring框架的RestTemplate模块类。在SpringBoot项目下使用。
@@ -48,6 +48,7 @@ public class WebConfig implements WebMvcConfigurer {
      * 《拦截器的传说》
      *
      * 1. Spring MVC 框架 3.0 - 拦截器：Interceptor。
+     *
      * 1.1 Spring MVC XML配置文档版本：dispatchServlet-servlet.xml。Spring XML配置文档：applicationContext.xml。
      *      <mvc:default-servlet-handler></mvc:default-servlet-handler>
      *      1. 通过转发到Servlet容器的默认Servlet来配置用于服务静态资源的处理程序。
