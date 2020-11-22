@@ -1,5 +1,7 @@
 package com.ego.service.impl;
 
+import com.alibaba.druid.support.json.JSONUtils;
+import com.alibaba.fastjson.JSON;
 import com.ego.dao.TbItemDescMapper;
 import com.ego.dao.TbItemMapper;
 import com.ego.entity.EasyUIPage;
@@ -13,6 +15,8 @@ import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,11 +39,16 @@ public class TbItemServiceImpl implements TbItemService {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(TbItemServiceImpl.class);
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @Autowired(required = false)
     private TbItemMapper tbItemMapper;
 
     @Autowired(required = false)
     private TbItemDescMapper tbItemDescMapper;
+
+    protected String jsonString = "";
 
     /**
      * 分页查询物料列表
@@ -56,6 +65,8 @@ public class TbItemServiceImpl implements TbItemService {
          * 数据集
          */
         List<TbItem> rows = tbItemMapper.selectItemPageList(startPage, pageSize);
+        jsonString = JSON.toJSONString(rows);
+        jsonString = JSONUtils.toJSONString(rows);
         easyUIPage.setRows(rows);
         /**
          * 总条数

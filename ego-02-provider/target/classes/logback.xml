@@ -20,7 +20,7 @@
         <!-- 滚动策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 自动压缩-->
-            <fileNamePattern>logs/ego-consumer.%d{yyyy-MM-dd_HH}.%i.log.gz</fileNamePattern>
+            <fileNamePattern>logs/ego-provider.%d{yyyy-MM-dd_HH}.%i.log.gz</fileNamePattern>
             <!-- 每100mb进行一次压缩-->
             <maxFileSize>100mb</maxFileSize>
             <!-- 最多保留720个小时内的日志 即30天-->
@@ -47,7 +47,7 @@
         <!--滚动策略 按照时间来滚动-->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 自动压缩-->
-            <fileNamePattern>logs/ego-consumer.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <fileNamePattern>logs/ego-provider.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
             <!-- 每100mb进行一次压缩-->
             <maxFileSize>100mb</maxFileSize>
             <!-- 最多保留30天日志-->

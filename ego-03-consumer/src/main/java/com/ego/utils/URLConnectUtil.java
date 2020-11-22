@@ -6,7 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * @author Administrator
+ * @author liuweiwei
  */
 public class URLConnectUtil extends URLConnection {
     /**
