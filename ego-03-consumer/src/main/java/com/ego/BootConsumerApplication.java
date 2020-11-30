@@ -12,8 +12,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @since 2020-8-15
  */
 @SpringBootApplication
-@EnableSwagger2
 @EnableDubbo
+@EnableSwagger2
 public class BootConsumerApplication {
     public static void main(String[] args) {
         SpringApplication.run(BootConsumerApplication.class, args);
