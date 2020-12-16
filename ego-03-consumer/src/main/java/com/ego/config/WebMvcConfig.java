@@ -1,9 +1,8 @@
 package com.ego.config;
 
-import com.ego.intercept.WebInterceptor;
+import com.ego.intercept.Web01Interceptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.validation.MessageCodesResolver;
@@ -12,10 +11,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -26,8 +22,7 @@ import java.util.List;
  * @author liuweiwei
  * @since 2020-05-20
  */
-//@Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfigurer {
 
     /**
      * 《过滤器的传说》
@@ -91,11 +86,8 @@ public class WebConfig implements WebMvcConfigurer {
      *
      */
 
-    @Value("${loginIntercept}")
-    private boolean loginIntercept;
-
     @Autowired
-    protected WebInterceptor webInterceptor;
+    private Web01Interceptor web01Interceptor;
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
@@ -124,35 +116,18 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        if (loginIntercept == false) {
-            // 1. 创建拦截器顺路继承自：HandlerInterceptorAdapter 抽象类。HandlerInterceptor 接口。
-            InterceptorRegistration interceptor1 = registry.addInterceptor(new HandlerInterceptorAdapter() {
-                @Override
-                public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-                    return true;
-                }
-            });
-            // 1.1 所有请求都拦截
-            interceptor1.addPathPatterns("/**");
-            // 1.2 配置不拦截请求（将不拦截请求添加进去）白名单
-            interceptor1.excludePathPatterns("/rest/login.do/info");
-            interceptor1.excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
-        }
-        if (loginIntercept == true) {
-            // 2. 自定义拦截器类继承自：HandlerInterceptorAdapter 抽象类。HandlerInterceptor 接口。
-            InterceptorRegistration interceptor2 = registry.addInterceptor(webInterceptor);
-            // 2.1 所有请求都拦截
-            interceptor2.addPathPatterns("/**");
-            // 2.2 配置不拦截请求（将不拦截请求添加进去）白名单
-            interceptor2.excludePathPatterns("/rest/login.do/info");
-            interceptor2.excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
-        }
+        registry.addInterceptor(web01Interceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/rest/login.do/info")
+                .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("doc.html").addResourceLocations("classpath*:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath*:/META-INF/resources/webjars/");
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     @Override

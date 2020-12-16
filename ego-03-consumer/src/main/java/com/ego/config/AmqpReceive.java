@@ -1,12 +1,9 @@
 package com.ego.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 /**
  * @author liuweiwei
@@ -16,12 +13,12 @@ import java.util.Map;
 @RabbitListener(queues = "alibaba.news")
 public class AmqpReceive {
     /**
-     * SLF4J 骚粉日志必备技能
+     * Log4j 罗锅否街日志技能（非：SLF4J 骚粉日志必备技能）
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(AmqpReceive.class);
+    private final Logger logger = Logger.getLogger(this.getClass());
 
     @RabbitHandler
     public void process(String message) {
-        LOGGER.info("监听器消费的消息： -> message: " + message);
+        logger.info("监听器消费的消息： -> message: " + message);
     }
 }

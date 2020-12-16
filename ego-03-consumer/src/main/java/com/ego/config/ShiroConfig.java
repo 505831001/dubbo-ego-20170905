@@ -1,6 +1,7 @@
 package com.ego.config;
 
 import com.ego.utils.CustomRealm;
+import org.apache.log4j.Logger;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -19,6 +20,11 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfig {
+    /**
+     * Log4j 罗锅否街日志技能（非：SLF4J 骚粉日志必备技能）
+     */
+    private final Logger logger = Logger.getLogger(this.getClass());
+
     /**
      * 注入SecurityManager
      *

@@ -1,5 +1,6 @@
 package com.ego.config;
 
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -13,6 +14,11 @@ import org.springframework.web.filter.CorsFilter;
  */
 @Configuration
 public class CrossOriginConfig {
+    /**
+     * Log4j 罗锅否街日志技能（非：SLF4J 骚粉日志必备技能）
+     */
+    private final Logger logger = Logger.getLogger(this.getClass());
+
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();

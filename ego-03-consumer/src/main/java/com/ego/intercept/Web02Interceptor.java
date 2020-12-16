@@ -1,5 +1,6 @@
 package com.ego.intercept;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,14 +15,20 @@ import javax.servlet.http.HttpServletResponse;
  * @author liuweiwei
  * @since 2020-05-20
  */
-public class MvcInterceptor implements HandlerInterceptor {
+@Component
+public class Web02Interceptor implements HandlerInterceptor {
     /**
      * 1. 拦截处理程序的执行。
      * 2. 在HandlerMapping确定适当的处理程序对象之后调用，但在HandlerAdapter调用处理程序之前。
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
-        System.out.println("Spring MVC 拦截器： preHandle() -> " + object);
+        System.out.println("拦截器02打印信息...");
+
+        // 添加跨域CORS
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type,token");
+        response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");
         return true;
     }
 
@@ -32,7 +39,7 @@ public class MvcInterceptor implements HandlerInterceptor {
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object object, ModelAndView mv) throws Exception {
-        System.out.println("Spring MVC 拦截器： postHandle() -> " + object);
+
     }
 
     /**
@@ -41,6 +48,6 @@ public class MvcInterceptor implements HandlerInterceptor {
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object object, Exception e) throws Exception {
-        System.out.println("Spring MVC 拦截器： afterCompletion() -> " + object);
+
     }
 }

@@ -6,6 +6,8 @@ import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,33 +22,39 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2020-05-20
  */
 @Component
-public class WebInterceptor extends HandlerInterceptorAdapter {
+public class Web01Interceptor implements HandlerInterceptor {
 
-    /**
-     * 注入用户表服务类
-     */
     @Reference
     protected TbUserService tbUserService;
 
-    /**
-     * 1. This implementation always returns {@code true}.
-     *
-     * @param request
-     * @param response
-     * @param handler
-     * @return boolean
-     * @throws Exception
-     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        System.out.println("拦截器01打印信息...");
+
+        // 添加跨域CORS
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type,token");
+        response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");
+
         if (!isNeedAuthFilter(handler)) {
             return true;
         }
+
         String password = tbUserService.getPassword("admin");
         if (StringUtils.isEmpty(password)) {
             throw new RuntimeException("登录失败");
         }
         return true;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+
     }
 
     /**

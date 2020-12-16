@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
@@ -12,6 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @since 2020-8-15
  */
 @SpringBootApplication
+@EnableWebMvc
 @EnableDubbo
 @EnableSwagger2
 public class BootConsumerApplication {

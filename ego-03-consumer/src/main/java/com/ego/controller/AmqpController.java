@@ -3,10 +3,10 @@ package com.ego.controller;
 import com.ego.service.AmqpService;
 import io.swagger.annotations.*;
 import org.apache.dubbo.config.annotation.Reference;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "AmqpController", description = "消息队列接口")
 public class AmqpController {
     /**
-     * SLF4J 骚粉日志必备技能
+     * Log4j 罗锅否街日志技能（非：SLF4J 骚粉日志必备技能）
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(AmqpController.class);
+    private  final Logger logger = Logger.getLogger(this.getClass());
 
     @Reference
     protected AmqpService amqpService;
@@ -37,8 +37,8 @@ public class AmqpController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "AMQP", response = String.class)
     })
-    public String sendMessage(String message) {
-        LOGGER.info("");
+    public String sendMessage(@RequestParam(name = "message", required = true, defaultValue = "") String message) {
+        logger.info("Request param is -> " + message);
         amqpService.sendMessage(message);
         return "Okay";
     }
