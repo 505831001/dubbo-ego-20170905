@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ego-01-common/ego-01-common.iml" filepath="$PROJECT_DIR$/ego-01-common/ego-01-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-02-provider/ego-02-provider.iml" filepath="$PROJECT_DIR$/ego-02-provider/ego-02-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ego-03-consumer/ego-03-consumer.iml" filepath="$PROJECT_DIR$/ego-03-consumer/ego-03-consumer.iml" />
+    </modules>
+  </component>
+</project>

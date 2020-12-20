@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @RabbitListener(queues = "alibaba.news")
 public class AmqpReceive {
     /**
-     * Log4j 罗锅否街日志技能（非：SLF4J 骚粉日志必备技能）
+     * Log4j 罗锅否街日志技能：log4j.properties（非：SLF4J 骚粉日志必备技能：logback.xml）
      */
     private final Logger logger = Logger.getLogger(this.getClass());
 

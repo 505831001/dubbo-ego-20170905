@@ -19,6 +19,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class SwaggerConfig {
 
+    /**
+     * Log4j 罗锅否街日志技能：log4j.properties（非：SLF4J 骚粉日志必备技能：logback.xml）
+     */
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)

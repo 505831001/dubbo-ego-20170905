@@ -25,6 +25,10 @@ import java.util.List;
 public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfigurer {
 
     /**
+     * Log4j 罗锅否街日志技能：log4j.properties（非：SLF4J 骚粉日志必备技能：logback.xml）
+     */
+
+    /**
      * 《过滤器的传说》
      *
      * 1. java web 跨域请求的几种方式
@@ -41,49 +45,48 @@ public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfi
 
     /**
      * 《拦截器的传说》
-     *
+     * <p>
      * 1. Spring MVC 框架 3.0 - 拦截器：Interceptor。
-     *
+     * <p>
      * 1.1 Spring MVC XML配置文档版本：dispatchServlet-servlet.xml。Spring XML配置文档：applicationContext.xml。
-     *      <mvc:default-servlet-handler></mvc:default-servlet-handler>
-     *      1. 通过转发到Servlet容器的默认Servlet来配置用于服务静态资源的处理程序。
-     *      2. 使用这种处理程序允许使用"/"映射与DispatcherServlet，同时仍然利用Servlet容器提供静态服务资源。
-     *      3. org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler。
-     *      <mvc:annotation-driven></mvc:annotation-driven>
-     *      1. 配置注解驱动的Spring MVC控制器编程模型。注意，在Spring 3.0中，这个标签只能在Servlet MVC中工作。
-     *      2. 看到EnableWebMvc Javadoc的关于启用注释驱动的Spring MVC的基于代码的替代方案的信息支持。
-     *      3. org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping。
-     *      4. org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter。
-     *      <mvc:resources></mvc:resources>
-     *      <mvc:resources location="/WEB-INF/js/"     mapping="/js/**"></mvc:resources>
-     *      <mvc:resources location="/WEB-INF/images/" mapping="/images/**"></mvc:resources>
-     *      <mvc:resources location="/WEB-INF/css/"    mapping="/css/**"></mvc:resources>
-     *      1. 配置一个处理程序，用于服务静态资源，比如：images，js，css文件与缓存头优化高效在web浏览器中加载。
-     *      2. 允许从通过Spring的资源处理可到达的任何路径提供资源。
-     *      <mvc:interceptors></mvc:interceptors>
-     *      <mvc:interceptors>
-     *         <mvc:interceptor>
-     *             <mvc:mapping path="/**"/>
-     *             <mvc:exclude-mapping path="/swagger-resources/**"/>
-     *             <mvc:exclude-mapping path="/v2/**"/>
-     *             <mvc:exclude-mapping path="/swagger-ui.html#!/**"/>
-     *             <mvc:exclude-mapping path="/swagger-resources/**"/>
-     *             <bean class="com.ego.intercept.MvcInterceptor"/>
-     *         </mvc:interceptor>
-     *      </mvc:interceptors>
-     *      1. 拦截器的有序集合，用于拦截由控制器处理的HTTP Servlet请求。
-     *      2. 拦截器允许在处理之前/之后对请求进行预处理/后处理。
-     *      3. 每个inteceptor必须实现HandlerInterceptor。或者WebRequestInterceptor接口。
-     *      4. 此集合中的拦截器在每个注册的处理程序映射上自动配置。
-     *      5. 每个拦截器应用的URI路径是可配置的。
-     *      <mvc:view-controller></mvc:view-controller>
-     *      <mvc:view-controller path="viewController" view-name="login"></mvc:view-controller>
-     *      1. 定义一个简单的控制器，它选择一个视图来呈现响应。
-     *      2. 视图映射到的URL路径。
-     *      3. 要呈现的视图的名称。可选的。
-     *      4. 如果没有指定，视图名称将从当前HttpServletRequest中确定通过DispatcherServlet的RequestToViewNameTranslator。
+     * <mvc:default-servlet-handler></mvc:default-servlet-handler>
+     * 1. 通过转发到Servlet容器的默认Servlet来配置用于服务静态资源的处理程序。
+     * 2. 使用这种处理程序允许使用"/"映射与DispatcherServlet，同时仍然利用Servlet容器提供静态服务资源。
+     * 3. org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler。
+     * <mvc:annotation-driven></mvc:annotation-driven>
+     * 1. 配置注解驱动的Spring MVC控制器编程模型。注意，在Spring 3.0中，这个标签只能在Servlet MVC中工作。
+     * 2. 看到EnableWebMvc Javadoc的关于启用注释驱动的Spring MVC的基于代码的替代方案的信息支持。
+     * 3. org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping。
+     * 4. org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter。
+     * <mvc:resources></mvc:resources>
+     * <mvc:resources location="/WEB-INF/js/"     mapping="/js/**"></mvc:resources>
+     * <mvc:resources location="/WEB-INF/images/" mapping="/images/**"></mvc:resources>
+     * <mvc:resources location="/WEB-INF/css/"    mapping="/css/**"></mvc:resources>
+     * 1. 配置一个处理程序，用于服务静态资源，比如：images，js，css文件与缓存头优化高效在web浏览器中加载。
+     * 2. 允许从通过Spring的资源处理可到达的任何路径提供资源。
+     * <mvc:interceptors></mvc:interceptors>
+     * <mvc:interceptors>
+     * <mvc:interceptor>
+     * <mvc:mapping path="/**"/>
+     * <mvc:exclude-mapping path="/swagger-resources/**"/>
+     * <mvc:exclude-mapping path="/v2/**"/>
+     * <mvc:exclude-mapping path="/swagger-ui.html#!/**"/>
+     * <mvc:exclude-mapping path="/swagger-resources/**"/>
+     * <bean class="com.ego.intercept.MvcInterceptor"/>
+     * </mvc:interceptor>
+     * </mvc:interceptors>
+     * 1. 拦截器的有序集合，用于拦截由控制器处理的HTTP Servlet请求。
+     * 2. 拦截器允许在处理之前/之后对请求进行预处理/后处理。
+     * 3. 每个inteceptor必须实现HandlerInterceptor。或者WebRequestInterceptor接口。
+     * 4. 此集合中的拦截器在每个注册的处理程序映射上自动配置。
+     * 5. 每个拦截器应用的URI路径是可配置的。
+     * <mvc:view-controller></mvc:view-controller>
+     * <mvc:view-controller path="viewController" view-name="login"></mvc:view-controller>
+     * 1. 定义一个简单的控制器，它选择一个视图来呈现响应。
+     * 2. 视图映射到的URL路径。
+     * 3. 要呈现的视图的名称。可选的。
+     * 4. 如果没有指定，视图名称将从当前HttpServletRequest中确定通过DispatcherServlet的RequestToViewNameTranslator。
      * 1.2 Spring Boot继承HandlerInterceptorAdapter新版本。或者继承WebMvcConfigurationSupport旧版本。
-     *
      */
 
     @Autowired
@@ -130,9 +133,19 @@ public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfi
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
+    /**
+     * Cross-Origin 跨域请求
+     *
+     * @param registry
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("POST", "DELETE", "PUT", "GET", "OPTIONS")
+                .maxAge(60 * 60 * 24 * 7)
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 
     @Override

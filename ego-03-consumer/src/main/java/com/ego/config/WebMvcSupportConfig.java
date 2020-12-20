@@ -3,6 +3,7 @@ package com.ego.config;
 import com.ego.intercept.Web02Interceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -19,8 +20,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 @Configuration
 public class WebMvcSupportConfig extends WebMvcConfigurationSupport {
 
+    /**
+     * Log4j 罗锅否街日志技能：log4j.properties（非：SLF4J 骚粉日志必备技能：logback.xml）
+     */
+
     @Autowired
     protected Web02Interceptor web02Interceptor;
+
+    @Override
+    protected void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("POST", "DELETE", "PUT", "GET", "OPTIONS")
+                .maxAge(60 * 60 * 24 * 7)
+                .allowedHeaders("*")
+                .allowCredentials(true);
+        super.addCorsMappings(registry);
+    }
 
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
