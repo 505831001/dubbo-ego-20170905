@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 public class LoginController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private ResultMap resultMap;
@@ -51,11 +52,11 @@ public class LoginController {
      * @param username 用户名
      * @param password 密码
      */
-    @PostMapping(value = "/login")
-    public ResultMap login(@RequestParam(name = "username", required = false, defaultValue = "abc") String username,
-                           @RequestParam(name = "password", required = false, defaultValue = "123") String password) {
+    @GetMapping(value = "/login")
+    public ResultMap login(
+            @RequestParam(name = "username", required = false, defaultValue = "abc") String username,
+            @RequestParam(name = "password", required = false, defaultValue = "123") String password) {
         Object details = new Object();
-
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
         token.setDetails(details);
         token.setAuthenticated(true);
@@ -73,9 +74,10 @@ public class LoginController {
      * @param username 用户名
      * @param password 密码
      */
-    @PostMapping(value = "/login2")
-    public ResultMap login2(@RequestParam(name = "username", required = false, defaultValue = "abc") String username,
-                           @RequestParam(name = "password", required = false, defaultValue = "123") String password) {
+    @GetMapping(value = "/login2")
+    public ResultMap login2(
+            @RequestParam(name = "username", required = false, defaultValue = "abc") String username,
+            @RequestParam(name = "password", required = false, defaultValue = "123") String password) {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         subject.login(token);
@@ -97,8 +99,9 @@ public class LoginController {
      */
     @GetMapping(value = "/login3")
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
-    public String login3(@RequestParam(name = "username", required = false, defaultValue = "abc") String username,
-                         @RequestParam(name = "password", required = false, defaultValue = "123") String password) {
+    public String login3(
+            @RequestParam(name = "username", required = false, defaultValue = "abc") String username,
+            @RequestParam(name = "password", required = false, defaultValue = "123") String password) {
         if ("admin".equals(username) && "123456".equals(password)) {
             return "<<success>> or <<successful>>";
         } else {
