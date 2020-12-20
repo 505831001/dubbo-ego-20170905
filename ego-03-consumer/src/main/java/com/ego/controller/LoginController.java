@@ -1,7 +1,9 @@
 package com.ego.controller;
 
+import com.ego.entity.TbUser;
 import com.ego.service.TbUserService;
 import com.ego.utils.ResultMap;
+import org.apache.dubbo.common.utils.StringUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -9,6 +11,7 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -43,30 +46,46 @@ public class LoginController {
     }
 
     /**
-     * 登陆
+     * Spring Security 安全框架方式
      *
      * @param username 用户名
      * @param password 密码
      */
     @PostMapping(value = "/login")
-    public ResultMap login(String username, String password) {
-        // 从SecurityUtils里边创建一个 subject
+    public ResultMap login(@RequestParam(name = "username", required = false, defaultValue = "abc") String username,
+                           @RequestParam(name = "password", required = false, defaultValue = "123") String password) {
+        Object details = new Object();
+
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+        token.setDetails(details);
+        token.setAuthenticated(true);
+
+        if (!StringUtils.isNotEmpty(token.getName())) {
+            return resultMap.success().message("欢迎来到成功页面！");
+        } else {
+            return resultMap.fail().message("权限错误！");
+        }
+    }
+
+    /**
+     * Apache shiro 安全框架方式
+     *
+     * @param username 用户名
+     * @param password 密码
+     */
+    @PostMapping(value = "/login2")
+    public ResultMap login2(@RequestParam(name = "username", required = false, defaultValue = "abc") String username,
+                           @RequestParam(name = "password", required = false, defaultValue = "123") String password) {
         Subject subject = SecurityUtils.getSubject();
-        // 在认证提交前准备 token（令牌）
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-        // 执行认证登陆
         subject.login(token);
-        //根据权限，指定返回数据
+
         String role = tbUserService.getRole(username);
-        LOGGER.info("登录用户权限域：" + role);
-        System.out.println("登录用户权限域：" + role);
-        if ("user".equals(role)) {
-            return resultMap.success().message("欢迎登陆");
+        if (org.apache.commons.lang3.StringUtils.isNotEmpty(role)) {
+            return resultMap.success().message("欢迎来到成功页面！");
+        } else {
+            return resultMap.fail().message("权限错误！");
         }
-        if ("admin".equals(role)) {
-            return resultMap.success().message("欢迎来到管理员页面");
-        }
-        return resultMap.fail().message("权限错误！");
     }
 
     /**
@@ -76,13 +95,24 @@ public class LoginController {
      * @param password
      * @return
      */
-    @PostMapping(value = "/login2")
+    @GetMapping(value = "/login3")
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
-    public String login2(String username, String password) {
+    public String login3(@RequestParam(name = "username", required = false, defaultValue = "abc") String username,
+                         @RequestParam(name = "password", required = false, defaultValue = "123") String password) {
         if ("admin".equals(username) && "123456".equals(password)) {
-            return "success or Successful";
+            return "<<success>> or <<successful>>";
         } else {
-            return "failure or Failed";
+            return "<<failure>> or <<failed>>";
+        }
+    }
+
+    @PostMapping(value = "/login4")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
+    public String login4(@RequestBody(required = false)TbUser user) {
+        if ("admin".equals(user.getUsername()) && "123456".equals(user.getPassword())) {
+            return "<<success>> or <<successful>>";
+        } else {
+            return "<<failure>> or <<failed>>";
         }
     }
 }
