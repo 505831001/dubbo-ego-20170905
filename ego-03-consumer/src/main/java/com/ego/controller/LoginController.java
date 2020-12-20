@@ -61,7 +61,8 @@ public class LoginController {
         token.setDetails(details);
         token.setAuthenticated(true);
 
-        if (!StringUtils.isNotEmpty(token.getName())) {
+        String role = tbUserService.getRole(username);
+        if (!StringUtils.isNotEmpty(role)) {
             return resultMap.success().message("欢迎来到成功页面！");
         } else {
             return resultMap.fail().message("权限错误！");
